@@ -1,6 +1,5 @@
 '''TASK 3 Efuah Faler Homework 4'''
 
-
 # Simple Shop Program
 # Using exception handling code blocks such as try/ except / else / finally, write a program that simulates a customer in a shop
 # (NB: the more code blocks the better, but try to use at least two key words e.g. try/except, raise)
@@ -29,77 +28,76 @@ class BalanceError(Exception):
     "Raised when the user has been asked 3 times but can't afford the purchase"
     pass
 
+
 # INPUT FUNCTIONS
 def get_input(text):
     return input(text)
 
+
 def get_more_money(text):
     return int(input(text))
 
+
 # FUNCTION TO GET ITEM PRICE (and checkout)
 def item_price():
+    balance = int(100)
+    attempts = 0
 
- balance = int(100)
- attempts = 0
+    item_name = get_input("What item would you like to buy? ").lower()
+    price = (shop_items[item_name])
+    print('OK. The ' + item_name + " costs " + str(price))
 
- try:
-     item_name = get_input("What item would you like to buy? ").lower()
-     item_price = (shop_items[item_name])
-     print('OK. The ' + item_name + " costs " + str(item_price))
+    if balance >= price:
+        print('Here is your ' + item_name + '. Goodbye and have a nice day!')
+        return price
 
-     if balance >= item_price:
-      print('Here is your ' + item_name + '. Goodbye and have a nice day!')
-      return item_price
-
-     else:
-       while attempts <= 3:
-         print("Sorry, but you can't afford that currently. Your balance is " + str(balance))
-         try:
-           more_money = get_more_money('How much money can you add to your balance? ')
-           new_balance = balance + more_money
-           balance = new_balance
-           print("Ok, I've added " + str(more_money) + ". Your updated balance is " + str(balance))
-         except ValueError: # added this to only accept valid input
-           print("Sorry, that's not a valid amount. Please try again")
-         attempts += 1
-         if balance >= item_price:
-            print('Here is your ' + item_name + '. Have a nice day!')
-            return item_price
-         if attempts == 3:
-            raise BalanceError
-         else:
-            continue
-
- except KeyError:
-     print("Sorry, we don't have that item in stock")
-     raise KeyError
-
- except BalanceError:
-     print('Sorry there is a problem with your balance. Please kindly leave the shop.')
-     raise BalanceError
-
- finally:
-    print("Goodbye!")
-
+    else:
+        while attempts <= 3:
+            print("Sorry, but you can't afford that currently. Your balance is " + str(balance))
+            try:
+                more_money = get_more_money('How much money can you add to your balance? ')
+                new_balance = balance + more_money
+                balance = new_balance
+                print("Ok, I've added " + str(more_money) + ". Your updated balance is " + str(balance))
+            except ValueError:  # added this to only accept valid input
+                print("Sorry, that's not a valid amount. Please try again")
+            attempts += 1
+            if balance >= price:
+                print('Here is your ' + item_name + '. Have a nice day!')
+                return price
+            if attempts == 3:
+                raise BalanceError
+            else:
+                continue
 
 
 # MAIN SHOP FUNCTION
 def luxury_shop():
+    print('Hello and welcome to Luxury Shop, We stock the following items: ')
+    for key, value in shop_items.items():
+        print(key, ':', value)
 
- print('Hello and welcome to Luxury Shop, We stock the following items: ')
- for key, value in shop_items.items():
-    items_list = print(key, ':', value)
+    exit = get_input("It's expensive here. Type y to stay, or n to exit ").lower()
 
- exit = get_input("It's expensive here. Type y to stay, or n to exit ").lower()
+    if exit == 'n':
+        print("Goodbye!")
+        return
+    elif exit == 'y':
+        print("Ok, I'm happy that you're staying!")
 
- if exit == 'n':
-     print("Goodbye!")
-     return
- elif exit == 'y':
-     print("Ok, I'm happy that you're staying!")
-     item_price()
- else:
-  raise ValueError('The format needs to be n for no, or y for yes')
+        try:
+            item_price()
+        except KeyError:
+            print("Sorry, we don't have that item in stock")
+
+        except BalanceError:
+            print('Sorry there is a problem with your balance. Please kindly leave the shop.')
+
+        finally:
+            print("Goodbye!")
+    else:
+        raise ValueError('The format needs to be n for no, or y for yes')
+
 
 # Uncomment below to run the function (I commented it out while running tests)
-#luxury_shop()
+# luxury_shop()
