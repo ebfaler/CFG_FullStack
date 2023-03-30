@@ -13,14 +13,17 @@ GitHub is one of the most popular code hosting services that uses Git. GitLab is
 ### There are 3 states in Git that files can be in. What are these states?
 
 **Modified**: Files have been changed but not yet committed
+
 **Staged**: The  files in staging have been tracked by Git and are marked as being ready to commit next.
+
 **Committed**: Files have been successfully committed (git commit - m “your message”) and are stored in the local repo.
 
 ## Question 4
 ### PR and repo are common abbreviations in the world of Git. What do they mean?
 
-PR stands for a Pull Request. A Pull request is when you submit your code to be reviewed by the person/people that maintains the repository.This gives the opportunity to review code and make follow up changes before merging into the main branch.
-Repo stands for a Repository. A Repository contains project files and the revision history of each file within it.
+**PR** stands for a Pull Request. A Pull request is when you submit your code to be reviewed by the person/people that maintains the repository.This gives the opportunity to review code and make follow up changes before merging into the main branch.
+
+**Repo** stands for a Repository. A Repository contains project files and the revision history of each file within it.
 
 ## Question 5
 ### What is the git command that updates the local repository with changes from the remote repository?
